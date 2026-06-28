@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>POTS & ME/CFS Tracker</title>
 
-    <!-- iOS home-screen web app -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -15,269 +14,128 @@
 
     <style>
         :root {
-            --bg-color: #f0f2f5;
-            --card-bg: #ffffff;
-            --text-color: #2d3436;
-            --primary-color: #6c5ce7;
-            --border-color: #dfe6e9;
-            --accent-color: #a29bfe;
+            --bg-color: #f0f2f5; --card-bg: #ffffff; --text-color: #2d3436;
+            --primary-color: #6c5ce7; --border-color: #dfe6e9; --accent-color: #a29bfe;
             --danger-color: #ff7675;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
+            background-color: var(--bg-color); color: var(--text-color);
+            margin: 0; padding: 20px;
             padding-top: max(20px, env(safe-area-inset-top));
             padding-bottom: max(20px, env(safe-area-inset-bottom));
-            display: flex;
-            justify-content: center;
+            display: flex; justify-content: center;
         }
-
         .container { width: 100%; max-width: 750px; }
-
         header { text-align: center; margin-bottom: 25px; }
         h1 { margin: 0; font-size: 2rem; color: #2d3436; }
-
         .card {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-            border: 1px solid var(--border-color);
+            background: var(--card-bg); padding: 25px; border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid var(--border-color);
         }
-
-        h2 {
-            margin-top: 0;
-            font-size: 1.4rem;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 8px;
-            color: #4a4a4a;
-        }
-
+        h2 { margin-top: 0; font-size: 1.4rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; color: #4a4a4a; }
+        h3 { font-size: 1rem; color: #4a4a4a; margin: 0 0 10px 0; }
         .form-group { margin-bottom: 20px; }
-
         label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.95rem; }
-
-        .symptom-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 8px;
-        }
-
-        .symptom-row {
-            background: #f8f9fa;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
+        .symptom-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 8px; }
+        .symptom-row { background: #f8f9fa; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px; }
         .symptom-row span { font-weight: 600; font-size: 0.9rem; }
         .symptom-row select { padding: 6px; font-size: 0.9rem; }
-
         .slider-container { display: flex; align-items: center; gap: 15px; }
         input[type="range"] { flex: 1; accent-color: var(--primary-color); }
-
-        .severity-val {
-            font-size: 1.2rem; font-weight: bold; min-width: 25px; color: var(--primary-color);
-        }
-
+        .severity-val { font-size: 1.2rem; font-weight: bold; min-width: 25px; color: var(--primary-color); }
         input[type="date"], input[type="text"], input[type="number"], select, textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 1rem;
-            background: #fff;
+            width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px;
+            box-sizing: border-box; font-size: 1rem; background: #fff;
         }
-
         textarea { resize: vertical; height: 100px; }
-
         button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            width: 100%;
-            transition: background 0.2s;
+            background-color: var(--primary-color); color: white; border: none; padding: 12px 20px;
+            border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: 600; width: 100%; transition: background 0.2s;
         }
         button:hover { background-color: #5b4bc4; }
-
-        .action-box {
-            background: #fff5f5;
-            border: 1px solid #fab1a0;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .action-box { background: #fff5f5; border: 1px solid #fab1a0; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
         .action-box p { margin: 0; font-size: 0.95rem; font-weight: 600; color: #c0392b; }
-
         .flare-btn { background-color: var(--danger-color); width: auto; padding: 8px 15px; }
         .flare-btn:hover { background-color: #e17055; }
-
-        .med-row {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            background: #f1f2f6;
-            padding: 10px 15px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-
-        .trends-box {
-            background: #fcfbfe;
-            border: 1px dashed var(--accent-color);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
-
-        .stat-card {
-            background: #fff;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-            text-align: center;
-        }
-
-        .stat-num { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); }
-
+        .med-row { display: flex; gap: 15px; align-items: center; background: #f1f2f6; padding: 10px 15px; border-radius: 6px; margin-bottom: 10px; font-size: 0.95rem; }
+        .trends-box { background: #fcfbfe; border: 1px dashed var(--accent-color); padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 10px; }
+        .stat-card { background: #fff; padding: 12px; border-radius: 6px; border: 1px solid var(--border-color); text-align: center; }
+        .stat-card > div:first-child { font-size: 0.8rem; color: #666; }
+        .stat-num { font-size: 1.4rem; font-weight: bold; color: var(--primary-color); }
         .log-list { display: flex; flex-direction: column; gap: 15px; }
-
-        .log-item {
-            background: #fafafa;
-            border: 1px solid var(--border-color);
-            padding: 18px;
-            border-radius: 8px;
-            position: relative;
-        }
-
+        .log-item { background: #fafafa; border: 1px solid var(--border-color); padding: 18px; border-radius: 8px; position: relative; }
         .log-date { font-weight: bold; color: #2d3436; font-size: 1rem; margin-bottom: 5px; padding-right: 90px; }
-
-        .log-severity {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            color: white;
-            margin-bottom: 10px;
-        }
-
-        .badge {
-            display: inline-block;
-            background: #e9ecef;
-            color: #495057;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            margin-right: 6px;
-            margin-bottom: 6px;
-            border: 1px solid #ced4da;
-        }
+        .log-severity { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; color: white; margin-bottom: 10px; }
+        .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; margin-right: 6px; margin-bottom: 6px; border: 1px solid #ced4da; }
         .badge-high { background: #f8d7da; color: #721c24; border-color: #f5c6cb; }
         .badge-alert { background: #ffeaa7; color: #d35400; border-color: #f1c40f; font-weight: bold; }
-
-        .log-notes {
-            background: #fff;
-            padding: 10px;
-            border-radius: 4px;
-            border-left: 3px solid var(--accent-color);
-            margin: 8px 0 0 0;
-            font-size: 0.95rem;
-            white-space: pre-wrap;
-        }
-
-        .delete-btn {
-            position: absolute; top: 18px; right: 18px;
-            background: none; color: #ff7675; border: none; cursor: pointer;
-            width: auto; padding: 0; font-size: 0.9rem;
-        }
+        .log-notes { background: #fff; padding: 10px; border-radius: 4px; border-left: 3px solid var(--accent-color); margin: 8px 0 0 0; font-size: 0.95rem; white-space: pre-wrap; }
+        .delete-btn { position: absolute; top: 18px; right: 18px; background: none; color: #ff7675; border: none; cursor: pointer; width: auto; padding: 0; font-size: 0.9rem; }
         .delete-btn:hover { background: none; color: #d63031; text-decoration: underline; }
-
-        .edit-btn {
-            position: absolute; top: 18px; right: 70px;
-            background: none; color: var(--primary-color); border: none; cursor: pointer;
-            width: auto; padding: 0; font-size: 0.9rem;
-        }
+        .edit-btn { position: absolute; top: 18px; right: 70px; background: none; color: var(--primary-color); border: none; cursor: pointer; width: auto; padding: 0; font-size: 0.9rem; }
         .edit-btn:hover { background: none; text-decoration: underline; }
 
-        /* Backup / restore controls */
-        .backup-row { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
-        .secondary-btn {
-            background: #f1f2f6;
-            color: var(--primary-color);
-            border: 1px solid var(--border-color);
-            width: auto; flex: 1; min-width: 140px;
-            padding: 10px 14px;
-            font-size: 0.9rem; font-weight: 600; text-align: center;
-            cursor: pointer; border-radius: 6px; box-sizing: border-box;
-        }
+        .backup-row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+        .secondary-btn { background: #f1f2f6; color: var(--primary-color); border: 1px solid var(--border-color); width: auto; flex: 1; min-width: 140px; padding: 10px 14px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; border-radius: 6px; box-sizing: border-box; }
         .secondary-btn:hover { background: #e4e7ed; }
-        .backup-hint { font-size: 0.8rem; color: #7f8c8d; margin: -8px 0 16px 0; }
-
-        .cancel-edit-btn {
-            background: #f1f2f6; color: #555; margin-top: 10px;
-        }
+        .backup-hint { font-size: 0.8rem; color: #7f8c8d; margin: -4px 0 16px 0; }
+        .cancel-edit-btn { background: #f1f2f6; color: #555; margin-top: 10px; }
         .cancel-edit-btn:hover { background: #e4e7ed; }
-
-        .editing-banner {
-            display: none;
-            background: #ede9ff;
-            border: 1px solid var(--accent-color);
-            color: #4b3fb0;
-            font-weight: 600;
-            font-size: 0.9rem;
-            padding: 10px 14px;
-            border-radius: 6px;
-            margin-bottom: 16px;
-        }
-
-        /* Backup reminder */
-        .reminder-box {
-            background: #fff8e1;
-            border: 1px solid #f1c40f;
-            border-radius: 8px;
-            padding: 14px 16px;
-            margin-bottom: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-            justify-content: space-between;
-        }
+        .editing-banner { display: none; background: #ede9ff; border: 1px solid var(--accent-color); color: #4b3fb0; font-weight: 600; font-size: 0.9rem; padding: 10px 14px; border-radius: 6px; margin-bottom: 16px; }
+        .reminder-box { background: #fff8e1; border: 1px solid #f1c40f; border-radius: 8px; padding: 14px 16px; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
         .reminder-text { font-size: 0.9rem; color: #7a5c00; font-weight: 600; flex: 1; min-width: 200px; }
         .reminder-actions { display: flex; gap: 8px; }
         .reminder-btn { width: auto; padding: 8px 14px; font-size: 0.85rem; }
         .reminder-dismiss { width: auto; padding: 8px 12px; font-size: 0.85rem; background: #f1f2f6; color: #555; }
         .reminder-dismiss:hover { background: #e4e7ed; }
+
+        /* Vitals */
+        .vitals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .vitals-grid .sub { font-size: 0.8rem; font-weight: 600; color: #555; margin-bottom: 4px; display: block; }
+        .delta-readout { margin-top: 12px; padding: 10px 12px; border-radius: 6px; background: #f4f3ff; border: 1px solid var(--accent-color); font-size: 0.95rem; font-weight: 600; color: #4b3fb0; }
+        .delta-flag { color: #c0392b; }
+        .vitals-note { font-size: 0.78rem; color: #7f8c8d; margin-top: 8px; }
+
+        /* Stand test */
+        .stand-area { display: none; margin-top: 12px; }
+        .stand-timer { font-size: 2.4rem; font-weight: 800; text-align: center; color: var(--primary-color); font-variant-numeric: tabular-nums; margin: 6px 0; }
+        .stand-instruction { text-align: center; font-size: 0.95rem; color: #4a4a4a; margin-bottom: 14px; min-height: 1.2em; }
+        .reading-row { display: flex; align-items: center; gap: 12px; background: #f8f9fa; border: 1px solid var(--border-color); border-radius: 6px; padding: 8px 12px; margin-bottom: 8px; transition: all 0.2s; }
+        .reading-row.due { background: #fff8e1; border-color: #f1c40f; box-shadow: 0 0 0 2px #f1c40f33; }
+        .reading-row .rl { font-weight: 600; font-size: 0.9rem; min-width: 92px; }
+        .reading-row input { max-width: 110px; margin-left: auto; }
+        .stand-result { display: none; margin-top: 14px; padding: 14px; border-radius: 8px; background: #f4f3ff; border: 1px solid var(--accent-color); }
+        .stand-result .big { font-size: 1.6rem; font-weight: 800; color: var(--primary-color); }
+        .stand-safety { font-size: 0.8rem; color: #c0392b; background: #fff5f5; border: 1px solid #fab1a0; border-radius: 6px; padding: 8px 12px; margin-bottom: 12px; }
+        .row-2 { display: flex; gap: 10px; flex-wrap: wrap; }
+        .row-2 > * { flex: 1; min-width: 140px; }
+
+        /* Chart */
+        .chart-controls { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+        .chart-controls label { margin: 0; }
+        .chart-controls select { width: auto; min-width: 180px; padding: 8px; }
+        .chart-wrap { width: 100%; overflow-x: auto; }
+        svg.chart { width: 100%; height: auto; display: block; }
+        .chart-empty { text-align: center; color: #888; padding: 30px 10px; font-size: 0.9rem; }
+
+        /* Print */
+        .print-only { position: absolute; left: -10000px; top: 0; }
+        @media print {
+            body { padding: 0; background: #fff; }
+            .container { display: none; }
+            .print-only { position: static; left: 0; padding: 16px; }
+            .print-only table { width: 100%; border-collapse: collapse; font-size: 11px; }
+            .print-only th, .print-only td { border: 1px solid #999; padding: 4px 6px; text-align: left; vertical-align: top; }
+            .print-only h2 { font-size: 18px; }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <h1>POTS & ME/CFS Tracker</h1>
-    </header>
+    <header><h1>POTS & ME/CFS Tracker</h1></header>
 
     <div id="backupReminder" class="reminder-box" style="display:none;">
         <span id="reminderText" class="reminder-text"></span>
@@ -313,6 +171,30 @@
             </div>
 
             <div class="form-group">
+                <label>Cardiovascular / Orthostatic Vitals</label>
+                <div class="vitals-grid">
+                    <div>
+                        <span class="sub">Resting HR (bpm)</span>
+                        <input type="number" id="restingHR" min="0" max="250" inputmode="numeric" placeholder="e.g. 72">
+                    </div>
+                    <div>
+                        <span class="sub">Standing HR (bpm)</span>
+                        <input type="number" id="standingHR" min="0" max="250" inputmode="numeric" placeholder="e.g. 108">
+                    </div>
+                    <div>
+                        <span class="sub">Resting BP (optional)</span>
+                        <input type="text" id="restBP" placeholder="120/80">
+                    </div>
+                    <div>
+                        <span class="sub">Standing BP (optional)</span>
+                        <input type="text" id="standBP" placeholder="118/82">
+                    </div>
+                </div>
+                <div id="deltaReadout" class="delta-readout" style="display:none;"></div>
+                <div class="vitals-note">POTS pattern: a sustained standing HR rise of &ge;30 bpm (&ge;40 if under 19) without a big BP drop. Tracking, not diagnosis.</div>
+            </div>
+
+            <div class="form-group">
                 <label>Medications Taken Today</label>
                 <div class="med-row">
                     <input type="checkbox" id="medZoloft" checked style="width:auto; margin-right:5px;">
@@ -329,42 +211,15 @@
             <div class="form-group">
                 <label>Symptom Ratings (1-5, 5 being severe)</label>
                 <div class="symptom-grid">
-                    <div class="symptom-row">
-                        <span>Fatigue</span>
-                        <select name="symptom_Fatigue"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select>
-                    </div>
-                    <div class="symptom-row">
-                        <span>Brain Fog</span>
-                        <select name="symptom_Brain Fog"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select>
-                    </div>
-                    <div class="symptom-row">
-                        <span>Dizziness / Lightheadedness</span>
-                        <select name="symptom_Dizziness"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select>
-                    </div>
-                    <div class="symptom-row">
-                        <span>Orthostatic Intolerance</span>
-                        <select name="symptom_Orthostatic Intolerance"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select>
-                    </div>
-                    <div class="symptom-row">
-                        <span>PEM (Post-Exertional Malaise)</span>
-                        <select name="symptom_PEM"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select>
-                    </div>
-                    <div class="symptom-row">
-                        <span>Joint Pain</span>
-                        <select name="symptom_Joint Pain"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select>
-                    </div>
-                    <div class="symptom-row">
-                        <span>Muscle Weakness</span>
-                        <select name="symptom_Muscle Weakness"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select>
-                    </div>
-                    <div class="symptom-row">
-                        <span>Stiffness</span>
-                        <select name="symptom_Stiffness"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select>
-                    </div>
-                    <div class="symptom-row">
-                        <span>Shortness of Breath</span>
-                        <select name="symptom_Shortness of Breath"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select>
-                    </div>
+                    <div class="symptom-row"><span>Fatigue</span><select name="symptom_Fatigue"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select></div>
+                    <div class="symptom-row"><span>Brain Fog</span><select name="symptom_Brain Fog"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select></div>
+                    <div class="symptom-row"><span>Dizziness / Lightheadedness</span><select name="symptom_Dizziness"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select></div>
+                    <div class="symptom-row"><span>Orthostatic Intolerance</span><select name="symptom_Orthostatic Intolerance"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select></div>
+                    <div class="symptom-row"><span>PEM (Post-Exertional Malaise)</span><select name="symptom_PEM"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select></div>
+                    <div class="symptom-row"><span>Joint Pain</span><select name="symptom_Joint Pain"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select></div>
+                    <div class="symptom-row"><span>Muscle Weakness</span><select name="symptom_Muscle Weakness"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select></div>
+                    <div class="symptom-row"><span>Stiffness</span><select name="symptom_Stiffness"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select></div>
+                    <div class="symptom-row"><span>Shortness of Breath</span><select name="symptom_Shortness of Breath"><option value="0">0 - None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Severe</option></select></div>
                 </div>
             </div>
 
@@ -398,35 +253,84 @@
     </div>
 
     <div class="card">
-        <h2>Trends Analysis (Last 30 Days)</h2>
-        <div class="trends-box">
-            <div class="stat-grid">
-                <div class="stat-card">
-                    <div>Avg Severity Level</div>
-                    <div id="avgSeverity" class="stat-num">--</div>
-                </div>
-                <div class="stat-card">
-                    <div>Total Episodes Tracked</div>
-                    <div id="episodeCount" class="stat-num" style="color:#e74c3c;">0</div>
+        <h2>Orthostatic Stand Test</h2>
+        <div class="stand-safety">&#9888;&#65039; If you feel faint, sit or lie down immediately. This is a tracking aid, not a diagnosis &mdash; review results with your clinician.</div>
+        <p style="font-size:0.9rem; color:#555; margin-top:0;">Rest seated/lying a few minutes, record your resting HR, then stand and record your heart rate at intervals. The app calculates your orthostatic &Delta;HR.</p>
+        <button type="button" id="standStartBtn">Start Stand Test</button>
+
+        <div id="standArea" class="stand-area">
+            <div class="form-group" style="margin-top:14px;">
+                <label for="standResting">Resting HR (seated/lying, before standing)</label>
+                <input type="number" id="standResting" min="0" max="250" inputmode="numeric" placeholder="bpm">
+            </div>
+            <button type="button" id="standGoBtn">I'm standing &mdash; start timer</button>
+
+            <div id="standTimerWrap" style="display:none;">
+                <div class="stand-timer" id="standTimer">00:00</div>
+                <div class="stand-instruction" id="standInstruction">Stand still. Record your HR at each interval below.</div>
+                <div id="standReadings"></div>
+                <div class="row-2" style="margin-top:10px;">
+                    <button type="button" id="standFinishBtn">Finish &amp; calculate</button>
+                    <button type="button" id="standCancelBtn" class="secondary-btn">Cancel</button>
                 </div>
             </div>
-            <div id="insightsText" style="margin-top: 15px; font-size: 0.9rem; line-height: 1.4; color: #555;">
-                Data logs will build analytics correlating medication shifts, activity pacing, and vasovagal trends.
+
+            <div id="standResult" class="stand-result">
+                <div id="standResultText"></div>
+                <button type="button" id="standSaveBtn" style="margin-top:12px;">Use these values in today's log</button>
             </div>
         </div>
     </div>
 
     <div class="card">
+        <h2>Trends Analysis (Last 30 Days)</h2>
+        <div class="trends-box">
+            <div class="stat-grid">
+                <div class="stat-card"><div>Avg Severity</div><div id="avgSeverity" class="stat-num">--</div></div>
+                <div class="stat-card"><div>Avg Orthostatic &Delta;HR</div><div id="avgDelta" class="stat-num">--</div></div>
+                <div class="stat-card"><div>Episodes</div><div id="episodeCount" class="stat-num" style="color:#e74c3c;">0</div></div>
+            </div>
+            <div id="insightsText" style="margin-top: 15px; font-size: 0.9rem; line-height: 1.4; color: #555;"></div>
+        </div>
+
+        <div class="chart-controls">
+            <label for="chartMetric">Chart:</label>
+            <select id="chartMetric">
+                <option value="severity">Overall severity (0-10)</option>
+                <option value="deltaHR">Orthostatic &Delta;HR (bpm)</option>
+                <option value="restingHR">Resting HR (bpm)</option>
+                <option value="standingHR">Standing HR (bpm)</option>
+                <option value="Fatigue">Fatigue (0-5)</option>
+                <option value="Brain Fog">Brain Fog (0-5)</option>
+                <option value="Dizziness">Dizziness (0-5)</option>
+                <option value="Orthostatic Intolerance">Orthostatic Intolerance (0-5)</option>
+                <option value="PEM">PEM (0-5)</option>
+                <option value="Joint Pain">Joint Pain (0-5)</option>
+                <option value="Muscle Weakness">Muscle Weakness (0-5)</option>
+                <option value="Stiffness">Stiffness (0-5)</option>
+                <option value="Shortness of Breath">Shortness of Breath (0-5)</option>
+            </select>
+        </div>
+        <div class="chart-wrap"><div id="chartHost"></div></div>
+    </div>
+
+    <div class="card">
         <h2>History Log</h2>
         <div class="backup-row">
-            <button type="button" class="secondary-btn" id="exportBtn">&#11015;&#65039; Export Backup</button>
-            <label class="secondary-btn" for="importInput">&#11014;&#65039; Restore Backup</label>
+            <button type="button" class="secondary-btn" id="exportBtn">&#11015;&#65039; Backup (.json)</button>
+            <label class="secondary-btn" for="importInput">&#11014;&#65039; Restore</label>
             <input type="file" id="importInput" accept="application/json,.json" style="display:none">
         </div>
-        <p class="backup-hint">Saves all entries to a file (Files / iCloud). Do this regularly &mdash; your data is stored only on this device.</p>
+        <div class="backup-row">
+            <button type="button" class="secondary-btn" id="csvBtn">&#128202; Export CSV</button>
+            <button type="button" class="secondary-btn" id="printBtn">&#128424;&#65039; Printable / PDF summary</button>
+        </div>
+        <p class="backup-hint">Backup saves all entries to a file. CSV opens in any spreadsheet. Print &rarr; "Save to Files" makes a PDF for appointments. Data lives only on this device.</p>
         <div id="historyLog" class="log-list"></div>
     </div>
 </div>
+
+<div id="printArea" class="print-only"></div>
 
 <script>
     const form = document.getElementById('trackerForm');
@@ -440,12 +344,26 @@
     const submitBtn = document.getElementById('submitBtn');
     const cancelEditBtn = document.getElementById('cancelEditBtn');
     const editingBanner = document.getElementById('editingBanner');
+    const restingHRInput = document.getElementById('restingHR');
+    const standingHRInput = document.getElementById('standingHR');
+    const restBPInput = document.getElementById('restBP');
+    const standBPInput = document.getElementById('standBP');
+    const deltaReadout = document.getElementById('deltaReadout');
+
+    const SYMPTOMS = ['Fatigue','Brain Fog','Dizziness','Orthostatic Intolerance','PEM','Joint Pain','Muscle Weakness','Stiffness','Shortness of Breath'];
+
+    // Storage layer with in-memory fallback (so the page never crashes if storage is blocked)
+    const store = (function(){
+        let mem = {}; let ok = false;
+        try { const k='__t'; window.localStorage.setItem(k,'1'); window.localStorage.removeItem(k); ok = true; } catch(e){ ok = false; }
+        return {
+            get(k){ try { return ok ? localStorage.getItem(k) : (k in mem ? mem[k] : null); } catch(e){ return (k in mem) ? mem[k] : null; } },
+            set(k,v){ try { if(ok) localStorage.setItem(k,v); else mem[k]=v; } catch(e){ mem[k]=v; } }
+        };
+    })();
 
     dateInput.value = new Date().toISOString().split('T')[0];
-
-    severityInput.addEventListener('input', (e) => {
-        severityVal.textContent = e.target.value;
-    });
+    severityInput.addEventListener('input', (e) => { severityVal.textContent = e.target.value; });
 
     function calculateExpectedLDN() {
         const startDate = new Date('2026-06-05');
@@ -454,155 +372,184 @@
         const diffWeeks = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 7));
         if (diffWeeks < 0) return 0;
         const stepsOfTwoWeeks = Math.floor(diffWeeks / 2);
-        const dose = 0.5 + (stepsOfTwoWeeks * 0.5);
-        return Math.min(dose, 6.0);
+        return Math.min(0.5 + (stepsOfTwoWeeks * 0.5), 6.0);
     }
-
-    dateInput.addEventListener('change', () => {
-        if (!editingId) ldnDoseInput.value = calculateExpectedLDN();
-    });
+    dateInput.addEventListener('change', () => { if (!editingId) ldnDoseInput.value = calculateExpectedLDN(); });
     ldnDoseInput.value = calculateExpectedLDN();
+
+    function updateDeltaReadout() {
+        const r = parseInt(restingHRInput.value), s = parseInt(standingHRInput.value);
+        if (isNaN(r) || isNaN(s)) { deltaReadout.style.display = 'none'; return; }
+        const delta = s - r;
+        const flag = delta >= 30;
+        deltaReadout.style.display = 'block';
+        deltaReadout.innerHTML = `Orthostatic &Delta;HR: <span style="font-size:1.1rem;">${delta >= 0 ? '+' : ''}${delta} bpm</span>` +
+            (flag ? ` <span class="delta-flag">&mdash; &ge;30, a POTS-range rise</span>` : ` &mdash; below the 30 bpm POTS threshold`);
+    }
+    restingHRInput.addEventListener('input', updateDeltaReadout);
+    standingHRInput.addEventListener('input', updateDeltaReadout);
 
     vasovagalBtn.addEventListener('click', () => {
         const now = new Date();
-        const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        if(notesInput.value) {
-            notesInput.value += `\n[\u26a0\ufe0f Vasovagal episode occurred at ${timeString}]`;
-        } else {
-            notesInput.value = `[\u26a0\ufe0f Vasovagal episode occurred at ${timeString}]`;
-        }
+        const t = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        notesInput.value = notesInput.value ? notesInput.value + `\n[\u26a0\ufe0f Vasovagal episode occurred at ${t}]` : `[\u26a0\ufe0f Vasovagal episode occurred at ${t}]`;
         vasovagalBtn.innerText = "\u2713 Episode Noted";
         vasovagalBtn.style.backgroundColor = "#2ecc71";
-        setTimeout(() => {
-            vasovagalBtn.innerText = "\u26a0\ufe0f Log Episode";
-            vasovagalBtn.style.backgroundColor = "var(--danger-color)";
-        }, 2000);
+        setTimeout(() => { vasovagalBtn.innerText = "\u26a0\ufe0f Log Episode"; vasovagalBtn.style.backgroundColor = "var(--danger-color)"; }, 2000);
     });
 
-    function genId() {
-        return (window.crypto && crypto.randomUUID)
-            ? crypto.randomUUID()
-            : 'id-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
-    }
+    function genId(){ return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 'id-' + Date.now() + '-' + Math.random().toString(36).slice(2,8); }
 
-    let logs = JSON.parse(localStorage.getItem('symptomLogs')) || [];
-
-    // Migrate older entries that have no id
-    (function migrate() {
-        let changed = false;
-        logs.forEach(l => { if (!l.id) { l.id = genId(); changed = true; } });
-        if (changed) localStorage.setItem('symptomLogs', JSON.stringify(logs));
-    })();
+    let logs = JSON.parse(store.get('symptomLogs') || 'null') || [];
+    (function migrate(){ let ch=false; logs.forEach(l=>{ if(!l.id){ l.id=genId(); ch=true; } }); if(ch) store.set('symptomLogs', JSON.stringify(logs)); })();
+    function saveLogs(){ store.set('symptomLogs', JSON.stringify(logs)); }
 
     let editingId = null;
 
-    function getSeverityColor(val) {
-        if (val <= 3) return '#2ecc71';
-        if (val <= 6) return '#f1c40f';
-        if (val <= 8) return '#e67e22';
-        return '#e74c3c';
-    }
+    function getSeverityColor(v){ if(v<=3) return '#2ecc71'; if(v<=6) return '#f1c40f'; if(v<=8) return '#e67e22'; return '#e74c3c'; }
+    function hasEpisode(log){ return !!(log.notes && log.notes.includes('\u26a0\ufe0f Vasovagal')); }
 
     function calculateTrends() {
-        if (logs.length === 0) {
+        const thirty = new Date(); thirty.setDate(thirty.getDate() - 30);
+        const recent = logs.filter(l => new Date(l.date) >= thirty);
+        if (recent.length === 0) {
             document.getElementById('avgSeverity').textContent = '--';
+            document.getElementById('avgDelta').textContent = '--';
             document.getElementById('episodeCount').textContent = '0';
+            document.getElementById('insightsText').textContent = 'Log daily entries to build trends.';
             return;
         }
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-        const recentLogs = logs.filter(log => new Date(log.date) >= thirtyDaysAgo);
-        if(recentLogs.length === 0) return;
+        const avgSev = (recent.reduce((s,l)=>s+(l.severity||0),0)/recent.length).toFixed(1);
+        document.getElementById('avgSeverity').textContent = `${avgSev}/10`;
+        const deltas = recent.map(l=>l.vitals && l.vitals.deltaHR).filter(v=>typeof v==='number');
+        document.getElementById('avgDelta').textContent = deltas.length ? `${Math.round(deltas.reduce((a,b)=>a+b,0)/deltas.length)} bpm` : '--';
+        document.getElementById('episodeCount').textContent = recent.filter(hasEpisode).length;
 
-        const totalSeverity = recentLogs.reduce((sum, log) => sum + log.severity, 0);
-        const avg = (totalSeverity / recentLogs.length).toFixed(1);
-        document.getElementById('avgSeverity').textContent = `${avg}/10`;
-
-        let episodes = 0;
-        recentLogs.forEach(log => {
-            if (log.notes && log.notes.includes('\u26a0\ufe0f Vasovagal')) episodes++;
+        // Simple PEM-lag heuristic: high-activity day followed by a severity jump 1-2 days later
+        let insight = '\ud83d\udca1 <strong>Observations:</strong> ';
+        const byDate = {}; logs.forEach(l => byDate[l.date] = l);
+        let pemHits = 0, pemChecks = 0;
+        logs.forEach(l => {
+            const heavy = /15k|Moderate walking|A lot of walking/.test(l.exercise || '');
+            if (!heavy) return;
+            pemChecks++;
+            const d = new Date(l.date);
+            for (let k=1;k<=2;k++){ const nd=new Date(d); nd.setDate(nd.getDate()+k); const key=nd.toISOString().split('T')[0]; const nxt=byDate[key]; if(nxt && (nxt.severity - l.severity) >= 2){ pemHits++; break; } }
         });
-        document.getElementById('episodeCount').textContent = episodes;
-
-        let insight = "\ud83d\udca1 <strong>Observations:</strong> ";
-        let ldnDoses = recentLogs.map(l => l.meds?.ldnDose).filter(Boolean);
-        if (ldnDoses.length > 3) {
-            insight += "Tracking LDN dosage adjustments against baseline severity parameters.";
+        if (pemChecks >= 3 && pemHits/pemChecks >= 0.4) {
+            insight += `Possible PEM pattern: your symptoms tended to spike 1&ndash;2 days after higher-activity days (${pemHits} of ${pemChecks} times). Worth pacing more conservatively.`;
+        } else if (deltas.length >= 3) {
+            const flagged = deltas.filter(d=>d>=30).length;
+            insight += `${flagged} of your last ${deltas.length} stand checks showed a &ge;30 bpm orthostatic rise. Keep logging HR for a clearer picture.`;
         } else {
-            insight += "Keep logging daily data. The algorithm is monitoring baseline trends alongside physical activity adjustments and titration schedules.";
+            insight += 'Add resting/standing HR and keep logging activity so the app can surface orthostatic and post-exertional patterns.';
         }
         document.getElementById('insightsText').innerHTML = insight;
     }
 
+    function formatDateWithDay(s){ return new Date(s).toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'short', day:'numeric', timeZone:'UTC' }); }
+    function shortDate(s){ return new Date(s).toLocaleDateString('en-US', { month:'short', day:'numeric', timeZone:'UTC' }); }
+
+    // ---------- Chart ----------
+    function getMetricValue(log, metric){
+        if(metric==='severity') return (typeof log.severity==='number') ? log.severity : null;
+        if(metric==='deltaHR') return (log.vitals && log.vitals.deltaHR!=null) ? log.vitals.deltaHR : null;
+        if(metric==='restingHR') return (log.vitals && log.vitals.restingHR!=null) ? log.vitals.restingHR : null;
+        if(metric==='standingHR') return (log.vitals && log.vitals.standingHR!=null) ? log.vitals.standingHR : null;
+        if(log.symptoms && log.symptoms[metric]!=null) return log.symptoms[metric];
+        return null;
+    }
+    function niceMax(v){ if(v<=5) return 5; if(v<=10) return 10; return Math.ceil(v/10)*10; }
+
+    function drawChart(){
+        const metric = document.getElementById('chartMetric').value;
+        const host = document.getElementById('chartHost');
+        const cutoff = new Date(); cutoff.setHours(0,0,0,0); cutoff.setDate(cutoff.getDate()-29);
+        const recent = logs.filter(l => new Date(l.date+'T00:00:00') >= cutoff).sort((a,b)=> new Date(a.date)-new Date(b.date));
+        const pts = recent.map(l => ({ d:new Date(l.date+'T00:00:00'), v:getMetricValue(l,metric), ep:hasEpisode(l) })).filter(p=>p.v!=null);
+        const eps = recent.map(l => ({ d:new Date(l.date+'T00:00:00'), ep:hasEpisode(l) })).filter(p=>p.ep);
+
+        if (pts.length === 0){ host.innerHTML = '<div class="chart-empty">No data yet for this metric in the last 30 days.</div>'; return; }
+
+        const W=700,H=240,padL=42,padR=14,padT=14,padB=30;
+        const minD = pts[0].d.getTime(), maxD = pts[pts.length-1].d.getTime();
+        const spanD = Math.max(1, maxD-minD);
+        const x = t => padL + ( (t-minD)/spanD ) * (W-padL-padR);
+        let yMin=0, yMax;
+        if(metric==='severity') yMax=10;
+        else if(SYMPTOMS.indexOf(metric)>-1) yMax=5;
+        else { const vs=pts.map(p=>p.v); yMin=Math.min.apply(null,vs); yMax=Math.max.apply(null,vs); const pad=Math.max(4,Math.round((yMax-yMin)*0.15)); yMin=Math.max(0,Math.floor((yMin-pad)/5)*5); yMax=niceMax(yMax+pad); if(yMax<=yMin) yMax=yMin+10; }
+        const y = v => padT + (1-(v-yMin)/(yMax-yMin)) * (H-padT-padB);
+
+        const ticks = 4; let grid='', ylab='';
+        for(let i=0;i<=ticks;i++){ const val=yMin+(yMax-yMin)*i/ticks; const yy=y(val); grid+=`<line x1="${padL}" y1="${yy.toFixed(1)}" x2="${W-padR}" y2="${yy.toFixed(1)}" stroke="#eef0f4"/>`; ylab+=`<text x="${padL-6}" y="${(yy+3).toFixed(1)}" font-size="10" fill="#999" text-anchor="end">${Math.round(val)}</text>`; }
+        let thr=''; if(metric==='deltaHR' && yMin<30 && yMax>30){ const yy=y(30); thr=`<line x1="${padL}" y1="${yy.toFixed(1)}" x2="${W-padR}" y2="${yy.toFixed(1)}" stroke="#e74c3c" stroke-dasharray="5 4" stroke-width="1.2"/><text x="${W-padR}" y="${(yy-4).toFixed(1)}" font-size="9" fill="#e74c3c" text-anchor="end">POTS &ge;30</text>`; }
+
+        const line = pts.map((p,i)=>`${i===0?'M':'L'}${x(p.d.getTime()).toFixed(1)} ${y(p.v).toFixed(1)}`).join(' ');
+        const dots = pts.map(p=>`<circle cx="${x(p.d.getTime()).toFixed(1)}" cy="${y(p.v).toFixed(1)}" r="3.2" fill="#6c5ce7"/>`).join('');
+        const epMarks = eps.map(p=>`<circle cx="${x(p.d.getTime()).toFixed(1)}" cy="${(H-padB+9).toFixed(1)}" r="3" fill="#e74c3c"/>`).join('');
+
+        const nLab=Math.min(5,pts.length); let xlab='';
+        for(let i=0;i<nLab;i++){ const idx=Math.round(i*(pts.length-1)/(nLab-1||1)); const p=pts[idx]; xlab+=`<text x="${x(p.d.getTime()).toFixed(1)}" y="${H-8}" font-size="10" fill="#999" text-anchor="middle">${shortDate(p.d.toISOString().split('T')[0])}</text>`; }
+
+        host.innerHTML = `<svg class="chart" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img">
+            ${grid}${thr}${ylab}
+            <path d="${line}" fill="none" stroke="#6c5ce7" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+            ${dots}${epMarks}${xlab}
+            ${eps.length?`<text x="${padL}" y="${H-2}" font-size="9" fill="#e74c3c">&#9679; vasovagal episode</text>`:''}
+        </svg>`;
+    }
+    document.getElementById('chartMetric').addEventListener('change', drawChart);
+
+    // ---------- Render ----------
     function renderLogs() {
         historyLog.innerHTML = '';
-        if (logs.length === 0) {
-            historyLog.innerHTML = '<p style="color: #888; text-align: center;">No entries logged yet.</p>';
-            calculateTrends();
-            return;
-        }
-        logs.sort((a, b) => new Date(b.date) - new Date(a.date));
-        logs.forEach((log) => {
-            const logItem = document.createElement('div');
-            logItem.className = 'log-item';
+        if (logs.length === 0) { historyLog.innerHTML = '<p style="color:#888;text-align:center;">No entries logged yet.</p>'; calculateTrends(); drawChart(); return; }
+        logs.sort((a,b)=> new Date(b.date)-new Date(a.date));
+        logs.forEach(log => {
+            const el = document.createElement('div'); el.className='log-item';
             const color = getSeverityColor(log.severity);
-
-            let symptomBadges = '';
-            if (log.symptoms && typeof log.symptoms === 'object' && !Array.isArray(log.symptoms)) {
-                for (const [sym, val] of Object.entries(log.symptoms)) {
-                    if (val > 0) {
-                        const isHigh = val >= 4 ? 'badge-high' : '';
-                        symptomBadges += `<span class="badge ${isHigh}">${sym}: <strong>${val}/5</strong></span>`;
-                    }
-                }
+            let badges='';
+            if(log.symptoms && typeof log.symptoms==='object'){ for(const [s,v] of Object.entries(log.symptoms)){ if(v>0){ badges+=`<span class="badge ${v>=4?'badge-high':''}">${s}: <strong>${v}/5</strong></span>`; } } }
+            const flare = hasEpisode(log) ? `<span class="badge badge-alert">\u26a0\ufe0f Vasovagal Syncopal Event</span>` : '';
+            let meds=''; if(log.meds){ meds=`<p style="margin:5px 0;font-size:0.85rem;color:#555;">\ud83d\udc8a <strong>Meds:</strong> ${log.meds.zoloft?'Zoloft 150mg':''}${log.meds.ldnTaken?` | LDN (${log.meds.ldnDose}mg)`:''}</p>`; }
+            let vit=''; if(log.vitals && (log.vitals.restingHR!=null || log.vitals.standingHR!=null)){
+                const r=log.vitals.restingHR, s=log.vitals.standingHR, dl=log.vitals.deltaHR;
+                vit=`<p style="margin:5px 0;font-size:0.85rem;color:#555;">\u2764\ufe0f <strong>HR:</strong> rest ${r!=null?r:'?'} / stand ${s!=null?s:'?'}${dl!=null?` (&Delta;${dl>=0?'+':''}${dl}${dl>=30?' \u26a0\ufe0f':''})`:''}${log.vitals.restBP||log.vitals.standBP?` &nbsp; BP ${log.vitals.restBP||'?'} \u2192 ${log.vitals.standBP||'?'}`:''}</p>`;
             }
-
-            let flareBadge = (log.notes && log.notes.includes('\u26a0\ufe0f Vasovagal')) ? `<span class="badge badge-alert">\u26a0\ufe0f Vasovagal Syncopal Event</span>` : '';
-            let medDisplay = '';
-            if (log.meds) {
-                medDisplay = `<p style="margin:5px 0; font-size:0.85rem; color:#555;">\ud83d\udc8a <strong>Meds:</strong> ` +
-                    `${log.meds.zoloft ? 'Zoloft 150mg' : ''}` +
-                    `${log.meds.ldnTaken ? ` | LDN (${log.meds.ldnDose}mg)` : ''}</p>`;
-            }
-
-            logItem.innerHTML = `
+            el.innerHTML = `
                 <button class="edit-btn" onclick="startEdit('${log.id}')">Edit</button>
                 <button class="delete-btn" onclick="deleteLog('${log.id}')">Delete</button>
                 <div class="log-date">${formatDateWithDay(log.date)}</div>
-                <div class="log-severity" style="background-color: ${color}">Baseline Pain/Fatigue: ${log.severity}/10</div>
-                ${medDisplay}
-                <p style="margin: 5px 0; font-size: 0.9rem;"><strong>Pacing:</strong> ${log.exercise || 'Not specified'}</p>
-                <p style="margin: 0 0 10px 0; font-size: 0.85rem; color:#57606f;">\ud83d\udca7 ${log.hydration || 'Fluid status unlogged'}</p>
-                <div style="margin-bottom: 10px;">${flareBadge} ${symptomBadges || '<em>No symptoms rated above 0</em>'}</div>
-                ${log.notes ? `<p class="log-notes"><strong>Notes:</strong> ${log.notes}</p>` : ''}
-            `;
-            historyLog.appendChild(logItem);
+                <div class="log-severity" style="background-color:${color}">Baseline Pain/Fatigue: ${log.severity}/10</div>
+                ${vit}${meds}
+                <p style="margin:5px 0;font-size:0.9rem;"><strong>Pacing:</strong> ${log.exercise||'Not specified'}</p>
+                <p style="margin:0 0 10px 0;font-size:0.85rem;color:#57606f;">\ud83d\udca7 ${log.hydration||'Fluid status unlogged'}</p>
+                <div style="margin-bottom:10px;">${flare} ${badges || '<em>No symptoms rated above 0</em>'}</div>
+                ${log.notes?`<p class="log-notes"><strong>Notes:</strong> ${log.notes}</p>`:''}`;
+            historyLog.appendChild(el);
         });
-        calculateTrends();
-    }
-
-    function formatDateWithDay(dateStr) {
-        const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' };
-        return new Date(dateStr).toLocaleDateString('en-US', options);
+        calculateTrends(); drawChart();
     }
 
     function buildEntryFromForm() {
-        const symptomRatings = {};
-        document.querySelectorAll('.symptom-grid select').forEach(select => {
-            const name = select.name.replace('symptom_', '');
-            symptomRatings[name] = parseInt(select.value);
-        });
+        const symptoms = {};
+        document.querySelectorAll('.symptom-grid select').forEach(sel => { symptoms[sel.name.replace('symptom_','')] = parseInt(sel.value); });
+        const r = parseInt(restingHRInput.value), s = parseInt(standingHRInput.value);
+        const vitals = {};
+        if(!isNaN(r)) vitals.restingHR = r;
+        if(!isNaN(s)) vitals.standingHR = s;
+        if(vitals.restingHR!=null && vitals.standingHR!=null) vitals.deltaHR = vitals.standingHR - vitals.restingHR;
+        if(restBPInput.value.trim()) vitals.restBP = restBPInput.value.trim();
+        if(standBPInput.value.trim()) vitals.standBP = standBPInput.value.trim();
         return {
             date: dateInput.value,
             severity: parseInt(severityInput.value),
-            symptoms: symptomRatings,
+            symptoms,
+            vitals: Object.keys(vitals).length ? vitals : undefined,
             exercise: document.getElementById('exercise').value,
             hydration: document.getElementById('potsHydration').value,
-            meds: {
-                zoloft: document.getElementById('medZoloft').checked,
-                ldnTaken: document.getElementById('medLDN').checked,
-                ldnDose: parseFloat(ldnDoseInput.value) || 0
-            },
+            meds: { zoloft: document.getElementById('medZoloft').checked, ldnTaken: document.getElementById('medLDN').checked, ldnDose: parseFloat(ldnDoseInput.value) || 0 },
             notes: notesInput.value.trim()
         };
     }
@@ -611,162 +558,188 @@
         editingId = null;
         form.reset();
         dateInput.value = new Date().toISOString().split('T')[0];
-        severityInput.value = 5;
-        severityVal.textContent = '5';
+        severityInput.value = 5; severityVal.textContent = '5';
         ldnDoseInput.value = calculateExpectedLDN();
+        deltaReadout.style.display = 'none';
         submitBtn.textContent = 'Save Log Entry';
         cancelEditBtn.style.display = 'none';
         editingBanner.style.display = 'none';
     }
 
-    window.startEdit = function(id) {
-        const log = logs.find(l => l.id === id);
-        if (!log) return;
+    window.startEdit = function(id){
+        const log = logs.find(l=>l.id===id); if(!log) return;
         editingId = id;
         dateInput.value = log.date;
-        severityInput.value = log.severity;
-        severityVal.textContent = log.severity;
+        severityInput.value = log.severity; severityVal.textContent = log.severity;
         document.getElementById('medZoloft').checked = !!(log.meds && log.meds.zoloft);
         document.getElementById('medLDN').checked = !!(log.meds && log.meds.ldnTaken);
-        ldnDoseInput.value = (log.meds && log.meds.ldnDose != null) ? log.meds.ldnDose : '';
-        document.querySelectorAll('.symptom-grid select').forEach(sel => {
-            const name = sel.name.replace('symptom_', '');
-            sel.value = (log.symptoms && log.symptoms[name] != null) ? log.symptoms[name] : 0;
-        });
-        if (log.hydration) document.getElementById('potsHydration').value = log.hydration;
-        if (log.exercise) document.getElementById('exercise').value = log.exercise;
+        ldnDoseInput.value = (log.meds && log.meds.ldnDose!=null) ? log.meds.ldnDose : '';
+        restingHRInput.value = (log.vitals && log.vitals.restingHR!=null) ? log.vitals.restingHR : '';
+        standingHRInput.value = (log.vitals && log.vitals.standingHR!=null) ? log.vitals.standingHR : '';
+        restBPInput.value = (log.vitals && log.vitals.restBP) ? log.vitals.restBP : '';
+        standBPInput.value = (log.vitals && log.vitals.standBP) ? log.vitals.standBP : '';
+        updateDeltaReadout();
+        document.querySelectorAll('.symptom-grid select').forEach(sel => { const n=sel.name.replace('symptom_',''); sel.value=(log.symptoms && log.symptoms[n]!=null)?log.symptoms[n]:0; });
+        if(log.hydration) document.getElementById('potsHydration').value = log.hydration;
+        if(log.exercise) document.getElementById('exercise').value = log.exercise;
         notesInput.value = log.notes || '';
         submitBtn.textContent = 'Update Entry';
         cancelEditBtn.style.display = 'block';
         editingBanner.textContent = '\u270f\ufe0f Editing entry for ' + formatDateWithDay(log.date) + '. Save to update it, or Cancel to start fresh.';
         editingBanner.style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top:0, behavior:'smooth' });
     };
-
     cancelEditBtn.addEventListener('click', resetForm);
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const date = dateInput.value;
-
-        // Duplicate-date guard
-        const collision = logs.find(l => l.date === date && l.id !== editingId);
-        if (collision) {
-            if (editingId) {
-                alert('Another entry already exists for ' + formatDateWithDay(date) + '. Pick a different date, or edit that entry instead.');
-                return;
-            }
-            if (confirm('You already have an entry for ' + formatDateWithDay(date) + '. Open it for editing instead of adding a duplicate?')) {
-                window.startEdit(collision.id);
-            }
+        const collision = logs.find(l => l.date===date && l.id!==editingId);
+        if(collision){
+            if(editingId){ alert('Another entry already exists for ' + formatDateWithDay(date) + '. Pick a different date, or edit that entry instead.'); return; }
+            if(confirm('You already have an entry for ' + formatDateWithDay(date) + '. Open it for editing instead of adding a duplicate?')) window.startEdit(collision.id);
             return;
         }
-
         const entry = buildEntryFromForm();
-        if (editingId) {
-            const idx = logs.findIndex(l => l.id === editingId);
-            entry.id = editingId;
-            if (idx > -1) logs[idx] = entry; else logs.push(entry);
-        } else {
-            entry.id = genId();
-            logs.push(entry);
-        }
-        localStorage.setItem('symptomLogs', JSON.stringify(logs));
-        resetForm();
-        renderLogs();
-        checkBackupReminder();
+        if(editingId){ const i=logs.findIndex(l=>l.id===editingId); entry.id=editingId; if(i>-1) logs[i]=entry; else logs.push(entry); }
+        else { entry.id=genId(); logs.push(entry); }
+        saveLogs(); resetForm(); renderLogs(); checkBackupReminder();
     });
 
-    window.deleteLog = function(id) {
-        if(confirm("Are you sure you want to delete this entry?")) {
-            logs = logs.filter(l => l.id !== id);
-            localStorage.setItem('symptomLogs', JSON.stringify(logs));
-            if (editingId === id) resetForm();
-            renderLogs();
-            checkBackupReminder();
-        }
+    window.deleteLog = function(id){
+        if(confirm("Are you sure you want to delete this entry?")){ logs=logs.filter(l=>l.id!==id); saveLogs(); if(editingId===id) resetForm(); renderLogs(); checkBackupReminder(); }
     };
 
-    // --- Backup / restore ---
-    const LAST_BACKUP_KEY = 'lastBackup';
-    let reminderDismissed = false;
+    // ---------- Stand test ----------
+    const READ_TIMES = [60,120,180,300,420,600]; // seconds standing
+    let standTimer=null, standElapsed=0, standResting=null;
+    const standArea=document.getElementById('standArea');
+    const standTimerWrap=document.getElementById('standTimerWrap');
+    const standTimerEl=document.getElementById('standTimer');
+    const standReadingsEl=document.getElementById('standReadings');
+    const standResultEl=document.getElementById('standResult');
+    const standResultText=document.getElementById('standResultText');
 
-    function exportData() {
-        if (logs.length === 0) { alert('Nothing to export yet.'); return; }
-        const dataStr = JSON.stringify(logs, null, 2);
-        const blob = new Blob([dataStr], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `symptom-backup-${new Date().toISOString().split('T')[0]}.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        localStorage.setItem(LAST_BACKUP_KEY, Date.now().toString());
-        reminderDismissed = false;
-        checkBackupReminder();
+    function fmtClock(s){ const m=Math.floor(s/60), ss=s%60; return String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0'); }
+    function buildReadingRows(){
+        standReadingsEl.innerHTML = READ_TIMES.map(t=>{
+            const lab = t<60? t+'s' : (t/60)+' min';
+            return `<div class="reading-row" data-t="${t}"><span class="rl">@ ${lab}</span><input type="number" min="0" max="250" inputmode="numeric" class="stand-read" data-t="${t}" placeholder="bpm"></div>`;
+        }).join('');
     }
+    document.getElementById('standStartBtn').addEventListener('click', ()=>{
+        standArea.style.display='block'; standTimerWrap.style.display='none'; standResultEl.style.display='none';
+        document.getElementById('standResting').value='';
+        document.getElementById('standStartBtn').scrollIntoView({behavior:'smooth', block:'center'});
+    });
+    document.getElementById('standGoBtn').addEventListener('click', ()=>{
+        standResting = parseInt(document.getElementById('standResting').value);
+        if(isNaN(standResting)){ alert('Enter your resting HR first.'); return; }
+        buildReadingRows();
+        standTimerWrap.style.display='block'; standResultEl.style.display='none';
+        standElapsed=0; standTimerEl.textContent='00:00';
+        if(standTimer) clearInterval(standTimer);
+        standTimer=setInterval(()=>{
+            standElapsed++; standTimerEl.textContent=fmtClock(standElapsed);
+            document.querySelectorAll('.reading-row').forEach(row=>{ const t=parseInt(row.dataset.t); if(standElapsed>=t && standElapsed<t+20) row.classList.add('due'); else row.classList.remove('due'); });
+            if(navigator.vibrate && READ_TIMES.indexOf(standElapsed)>-1) navigator.vibrate(200);
+            if(standElapsed>=600){ clearInterval(standTimer); standTimer=null; }
+        },1000);
+    });
+    function finishStand(){
+        if(standTimer){ clearInterval(standTimer); standTimer=null; }
+        const reads=[...document.querySelectorAll('.stand-read')].map(i=>parseInt(i.value)).filter(v=>!isNaN(v));
+        if(reads.length===0){ alert('Enter at least one standing HR reading.'); return; }
+        const peak=Math.max.apply(null,reads); const delta=peak-standResting; const flag=delta>=30;
+        standResultText.innerHTML = `<div class="big">&Delta;HR ${delta>=0?'+':''}${delta} bpm</div>
+            Resting ${standResting} &rarr; peak standing ${peak} bpm.<br>
+            ${flag? '<span style="color:#c0392b;font-weight:700;">A &ge;30 bpm rise &mdash; consistent with a POTS pattern when sustained.</span>' : 'Below the 30 bpm POTS threshold.'}
+            <div style="font-size:0.8rem;color:#7f8c8d;margin-top:6px;">A single test isn\u2019t a diagnosis. Share repeated results with your clinician.</div>`;
+        standResultEl.style.display='block'; standTimerWrap.style.display='none';
+        standResultEl._vals={resting:standResting, peak:peak};
+        standResultEl.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+    document.getElementById('standFinishBtn').addEventListener('click', finishStand);
+    document.getElementById('standCancelBtn').addEventListener('click', ()=>{ if(standTimer){clearInterval(standTimer);standTimer=null;} standArea.style.display='none'; });
+    document.getElementById('standSaveBtn').addEventListener('click', ()=>{
+        const v=standResultEl._vals; if(!v) return;
+        restingHRInput.value=v.resting; standingHRInput.value=v.peak; updateDeltaReadout();
+        dateInput.value=new Date().toISOString().split('T')[0];
+        standArea.style.display='none';
+        form.scrollIntoView({behavior:'smooth', block:'start'});
+    });
 
-    function importData(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            try {
-                const imported = JSON.parse(e.target.result);
-                if (!Array.isArray(imported)) throw new Error('File is not a valid backup.');
-                if (confirm(`Import ${imported.length} entries? This REPLACES your current ${logs.length} entries on this device.`)) {
-                    imported.forEach(l => { if (!l.id) l.id = genId(); });
-                    logs = imported;
-                    localStorage.setItem('symptomLogs', JSON.stringify(logs));
-                    resetForm();
-                    renderLogs();
-                    checkBackupReminder();
-                    alert('Backup restored successfully.');
-                }
-            } catch (err) {
-                alert('Could not read that backup file: ' + err.message);
-            }
-            event.target.value = '';
-        };
+    // ---------- Backup / restore ----------
+    const LAST_BACKUP_KEY='lastBackup'; let reminderDismissed=false;
+    function download(filename, text, type){
+        const blob=new Blob([text],{type}); const url=URL.createObjectURL(blob);
+        const a=document.createElement('a'); a.href=url; a.download=filename; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    }
+    function exportData(){
+        if(logs.length===0){ alert('Nothing to export yet.'); return; }
+        download(`symptom-backup-${new Date().toISOString().split('T')[0]}.json`, JSON.stringify(logs,null,2), 'application/json');
+        store.set(LAST_BACKUP_KEY, Date.now().toString()); reminderDismissed=false; checkBackupReminder();
+    }
+    function importData(event){
+        const file=event.target.files[0]; if(!file) return;
+        const reader=new FileReader();
+        reader.onload=(e)=>{ try{ const imp=JSON.parse(e.target.result); if(!Array.isArray(imp)) throw new Error('File is not a valid backup.');
+            if(confirm(`Import ${imp.length} entries? This REPLACES your current ${logs.length} entries on this device.`)){ imp.forEach(l=>{ if(!l.id) l.id=genId(); }); logs=imp; saveLogs(); resetForm(); renderLogs(); checkBackupReminder(); alert('Backup restored successfully.'); }
+        }catch(err){ alert('Could not read that backup file: '+err.message); } event.target.value=''; };
         reader.readAsText(file);
     }
-
-    function checkBackupReminder() {
-        const box = document.getElementById('backupReminder');
-        if (reminderDismissed || logs.length === 0) { box.style.display = 'none'; return; }
-        const last = localStorage.getItem(LAST_BACKUP_KEY);
-        let days = Infinity;
-        if (last) days = Math.floor((Date.now() - parseInt(last, 10)) / 86400000);
-        if (days >= 7) {
-            const msg = last
-                ? `It's been ${days} day${days === 1 ? '' : 's'} since your last backup.`
-                : `You have ${logs.length} entr${logs.length === 1 ? 'y' : 'ies'} that haven't been backed up yet.`;
-            document.getElementById('reminderText').textContent = msg + ' Export a copy so it\u2019s safe if this device is lost or reset.';
-            box.style.display = 'flex';
-        } else {
-            box.style.display = 'none';
-        }
+    function csvEscape(v){ if(v==null) return ''; const s=String(v); return /[",\n]/.test(s) ? '"'+s.replace(/"/g,'""')+'"' : s; }
+    function exportCSV(){
+        if(logs.length===0){ alert('Nothing to export yet.'); return; }
+        const cols=['date','severity','restingHR','standingHR','deltaHR','restBP','standBP','episode',...SYMPTOMS,'zoloft','ldnTaken','ldnDose','hydration','exercise','notes'];
+        const rows=[cols.join(',')];
+        [...logs].sort((a,b)=>new Date(a.date)-new Date(b.date)).forEach(l=>{
+            const v=l.vitals||{}; const m=l.meds||{};
+            const row=[l.date,l.severity,v.restingHR,v.standingHR,v.deltaHR,v.restBP,v.standBP, hasEpisode(l)?1:0,
+                ...SYMPTOMS.map(s=>l.symptoms?l.symptoms[s]:''), m.zoloft?1:0, m.ldnTaken?1:0, m.ldnDose, l.hydration, l.exercise, l.notes];
+            rows.push(row.map(csvEscape).join(','));
+        });
+        download(`symptom-data-${new Date().toISOString().split('T')[0]}.csv`, rows.join('\n'), 'text/csv');
+    }
+    function printSummary(){
+        if(logs.length===0){ alert('Nothing to summarize yet.'); return; }
+        const sorted=[...logs].sort((a,b)=>new Date(b.date)-new Date(a.date));
+        const sev=sorted.map(l=>l.severity).filter(n=>typeof n==='number');
+        const deltas=sorted.map(l=>l.vitals&&l.vitals.deltaHR).filter(n=>typeof n==='number');
+        const avg=arr=>arr.length?(arr.reduce((a,b)=>a+b,0)/arr.length):null;
+        const aSev=avg(sev), aDel=avg(deltas), eps=sorted.filter(hasEpisode).length;
+        let rows='';
+        sorted.forEach(l=>{ const v=l.vitals||{}; const topSym=Object.entries(l.symptoms||{}).filter(([_,x])=>x>=3).map(([k,x])=>`${k} ${x}`).join(', ');
+            rows+=`<tr><td>${shortDate(l.date)}</td><td>${l.severity}</td><td>${v.deltaHR!=null?(v.deltaHR>=0?'+':'')+v.deltaHR:''}</td><td>${topSym||''}</td><td>${hasEpisode(l)?'Yes':''}</td><td>${(l.notes||'').replace(/</g,'&lt;').slice(0,140)}</td></tr>`; });
+        document.getElementById('printArea').innerHTML = `
+            <h2>POTS &amp; ME/CFS Summary</h2>
+            <p>Generated ${new Date().toLocaleDateString()} &bull; ${sorted.length} entries</p>
+            <p><strong>Avg severity:</strong> ${aSev!=null?aSev.toFixed(1)+'/10':'n/a'} &nbsp; | &nbsp;
+               <strong>Avg orthostatic &Delta;HR:</strong> ${aDel!=null?Math.round(aDel)+' bpm':'n/a'} &nbsp; | &nbsp;
+               <strong>Vasovagal episodes:</strong> ${eps}</p>
+            <table><thead><tr><th>Date</th><th>Sev</th><th>&Delta;HR</th><th>Notable symptoms (&ge;3)</th><th>Episode</th><th>Notes</th></tr></thead><tbody>${rows}</tbody></table>`;
+        window.print();
+    }
+    function checkBackupReminder(){
+        const box=document.getElementById('backupReminder');
+        if(reminderDismissed || logs.length===0){ box.style.display='none'; return; }
+        const last=store.get(LAST_BACKUP_KEY); let days=Infinity; if(last) days=Math.floor((Date.now()-parseInt(last,10))/86400000);
+        if(days>=7){ const msg=last?`It's been ${days} day${days===1?'':'s'} since your last backup.`:`You have ${logs.length} entr${logs.length===1?'y':'ies'} that haven't been backed up yet.`;
+            document.getElementById('reminderText').textContent=msg+' Export a copy so it\u2019s safe if this device is lost or reset.'; box.style.display='flex';
+        } else box.style.display='none';
     }
 
     document.getElementById('exportBtn').addEventListener('click', exportData);
     document.getElementById('importInput').addEventListener('change', importData);
+    document.getElementById('csvBtn').addEventListener('click', exportCSV);
+    document.getElementById('printBtn').addEventListener('click', printSummary);
     document.getElementById('reminderExportBtn').addEventListener('click', exportData);
-    document.getElementById('reminderDismiss').addEventListener('click', () => {
-        reminderDismissed = true;
-        document.getElementById('backupReminder').style.display = 'none';
-    });
+    document.getElementById('reminderDismiss').addEventListener('click', ()=>{ reminderDismissed=true; document.getElementById('backupReminder').style.display='none'; });
 
     renderLogs();
     checkBackupReminder();
 
-    // --- Offline support ---
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js').catch(() => {});
-        });
-    }
+    if('serviceWorker' in navigator){ window.addEventListener('load', ()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); }); }
 </script>
 </body>
 </html>
