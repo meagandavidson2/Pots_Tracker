@@ -34,7 +34,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid var(--border-color);
         }
         h2 { margin-top: 0; font-size: 1.4rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; color: #4a4a4a; }
-        h3 { font-size: 1rem; color: #4a4a4a; margin: 0 0 10px 0; }
         .form-group { margin-bottom: 20px; }
         label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.95rem; }
         .symptom-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 8px; }
@@ -60,7 +59,7 @@
         .flare-btn:hover { background-color: #e17055; }
         .med-row { display: flex; gap: 15px; align-items: center; background: #f1f2f6; padding: 10px 15px; border-radius: 6px; margin-bottom: 10px; font-size: 0.95rem; }
         .trends-box { background: #fcfbfe; border: 1px dashed var(--accent-color); padding: 15px; border-radius: 8px; margin-bottom: 15px; }
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 10px; }
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
         .stat-card { background: #fff; padding: 12px; border-radius: 6px; border: 1px solid var(--border-color); text-align: center; }
         .stat-card > div:first-child { font-size: 0.8rem; color: #666; }
         .stat-num { font-size: 1.4rem; font-weight: bold; color: var(--primary-color); }
@@ -91,28 +90,6 @@
         .reminder-dismiss { width: auto; padding: 8px 12px; font-size: 0.85rem; background: #f1f2f6; color: #555; }
         .reminder-dismiss:hover { background: #e4e7ed; }
 
-        /* Vitals */
-        .vitals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .vitals-grid .sub { font-size: 0.8rem; font-weight: 600; color: #555; margin-bottom: 4px; display: block; }
-        .delta-readout { margin-top: 12px; padding: 10px 12px; border-radius: 6px; background: #f4f3ff; border: 1px solid var(--accent-color); font-size: 0.95rem; font-weight: 600; color: #4b3fb0; }
-        .delta-flag { color: #c0392b; }
-        .vitals-note { font-size: 0.78rem; color: #7f8c8d; margin-top: 8px; }
-
-        /* Stand test */
-        .stand-area { display: none; margin-top: 12px; }
-        .stand-timer { font-size: 2.4rem; font-weight: 800; text-align: center; color: var(--primary-color); font-variant-numeric: tabular-nums; margin: 6px 0; }
-        .stand-instruction { text-align: center; font-size: 0.95rem; color: #4a4a4a; margin-bottom: 14px; min-height: 1.2em; }
-        .reading-row { display: flex; align-items: center; gap: 12px; background: #f8f9fa; border: 1px solid var(--border-color); border-radius: 6px; padding: 8px 12px; margin-bottom: 8px; transition: all 0.2s; }
-        .reading-row.due { background: #fff8e1; border-color: #f1c40f; box-shadow: 0 0 0 2px #f1c40f33; }
-        .reading-row .rl { font-weight: 600; font-size: 0.9rem; min-width: 92px; }
-        .reading-row input { max-width: 110px; margin-left: auto; }
-        .stand-result { display: none; margin-top: 14px; padding: 14px; border-radius: 8px; background: #f4f3ff; border: 1px solid var(--accent-color); }
-        .stand-result .big { font-size: 1.6rem; font-weight: 800; color: var(--primary-color); }
-        .stand-safety { font-size: 0.8rem; color: #c0392b; background: #fff5f5; border: 1px solid #fab1a0; border-radius: 6px; padding: 8px 12px; margin-bottom: 12px; }
-        .row-2 { display: flex; gap: 10px; flex-wrap: wrap; }
-        .row-2 > * { flex: 1; min-width: 140px; }
-
-        /* Chart */
         .chart-controls { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
         .chart-controls label { margin: 0; }
         .chart-controls select { width: auto; min-width: 180px; padding: 8px; }
@@ -120,7 +97,6 @@
         svg.chart { width: 100%; height: auto; display: block; }
         .chart-empty { text-align: center; color: #888; padding: 30px 10px; font-size: 0.9rem; }
 
-        /* Print */
         .print-only { position: absolute; left: -10000px; top: 0; }
         @media print {
             body { padding: 0; background: #fff; }
@@ -168,30 +144,6 @@
                     <input type="range" id="severity" min="1" max="10" value="5">
                     <span id="severityVal" class="severity-val">5</span>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label>Cardiovascular / Orthostatic Vitals</label>
-                <div class="vitals-grid">
-                    <div>
-                        <span class="sub">Resting HR (bpm)</span>
-                        <input type="number" id="restingHR" min="0" max="250" inputmode="numeric" placeholder="e.g. 72">
-                    </div>
-                    <div>
-                        <span class="sub">Standing HR (bpm)</span>
-                        <input type="number" id="standingHR" min="0" max="250" inputmode="numeric" placeholder="e.g. 108">
-                    </div>
-                    <div>
-                        <span class="sub">Resting BP (optional)</span>
-                        <input type="text" id="restBP" placeholder="120/80">
-                    </div>
-                    <div>
-                        <span class="sub">Standing BP (optional)</span>
-                        <input type="text" id="standBP" placeholder="118/82">
-                    </div>
-                </div>
-                <div id="deltaReadout" class="delta-readout" style="display:none;"></div>
-                <div class="vitals-note">POTS pattern: a sustained standing HR rise of &ge;30 bpm (&ge;40 if under 19) without a big BP drop. Tracking, not diagnosis.</div>
             </div>
 
             <div class="form-group">
@@ -253,41 +205,10 @@
     </div>
 
     <div class="card">
-        <h2>Orthostatic Stand Test</h2>
-        <div class="stand-safety">&#9888;&#65039; If you feel faint, sit or lie down immediately. This is a tracking aid, not a diagnosis &mdash; review results with your clinician.</div>
-        <p style="font-size:0.9rem; color:#555; margin-top:0;">Rest seated/lying a few minutes, record your resting HR, then stand and record your heart rate at intervals. The app calculates your orthostatic &Delta;HR.</p>
-        <button type="button" id="standStartBtn">Start Stand Test</button>
-
-        <div id="standArea" class="stand-area">
-            <div class="form-group" style="margin-top:14px;">
-                <label for="standResting">Resting HR (seated/lying, before standing)</label>
-                <input type="number" id="standResting" min="0" max="250" inputmode="numeric" placeholder="bpm">
-            </div>
-            <button type="button" id="standGoBtn">I'm standing &mdash; start timer</button>
-
-            <div id="standTimerWrap" style="display:none;">
-                <div class="stand-timer" id="standTimer">00:00</div>
-                <div class="stand-instruction" id="standInstruction">Stand still. Record your HR at each interval below.</div>
-                <div id="standReadings"></div>
-                <div class="row-2" style="margin-top:10px;">
-                    <button type="button" id="standFinishBtn">Finish &amp; calculate</button>
-                    <button type="button" id="standCancelBtn" class="secondary-btn">Cancel</button>
-                </div>
-            </div>
-
-            <div id="standResult" class="stand-result">
-                <div id="standResultText"></div>
-                <button type="button" id="standSaveBtn" style="margin-top:12px;">Use these values in today's log</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
         <h2>Trends Analysis (Last 30 Days)</h2>
         <div class="trends-box">
             <div class="stat-grid">
                 <div class="stat-card"><div>Avg Severity</div><div id="avgSeverity" class="stat-num">--</div></div>
-                <div class="stat-card"><div>Avg Orthostatic &Delta;HR</div><div id="avgDelta" class="stat-num">--</div></div>
                 <div class="stat-card"><div>Episodes</div><div id="episodeCount" class="stat-num" style="color:#e74c3c;">0</div></div>
             </div>
             <div id="insightsText" style="margin-top: 15px; font-size: 0.9rem; line-height: 1.4; color: #555;"></div>
@@ -297,9 +218,6 @@
             <label for="chartMetric">Chart:</label>
             <select id="chartMetric">
                 <option value="severity">Overall severity (0-10)</option>
-                <option value="deltaHR">Orthostatic &Delta;HR (bpm)</option>
-                <option value="restingHR">Resting HR (bpm)</option>
-                <option value="standingHR">Standing HR (bpm)</option>
                 <option value="Fatigue">Fatigue (0-5)</option>
                 <option value="Brain Fog">Brain Fog (0-5)</option>
                 <option value="Dizziness">Dizziness (0-5)</option>
@@ -344,15 +262,9 @@
     const submitBtn = document.getElementById('submitBtn');
     const cancelEditBtn = document.getElementById('cancelEditBtn');
     const editingBanner = document.getElementById('editingBanner');
-    const restingHRInput = document.getElementById('restingHR');
-    const standingHRInput = document.getElementById('standingHR');
-    const restBPInput = document.getElementById('restBP');
-    const standBPInput = document.getElementById('standBP');
-    const deltaReadout = document.getElementById('deltaReadout');
 
     const SYMPTOMS = ['Fatigue','Brain Fog','Dizziness','Orthostatic Intolerance','PEM','Joint Pain','Muscle Weakness','Stiffness','Shortness of Breath'];
 
-    // Storage layer with in-memory fallback (so the page never crashes if storage is blocked)
     const store = (function(){
         let mem = {}; let ok = false;
         try { const k='__t'; window.localStorage.setItem(k,'1'); window.localStorage.removeItem(k); ok = true; } catch(e){ ok = false; }
@@ -376,18 +288,6 @@
     }
     dateInput.addEventListener('change', () => { if (!editingId) ldnDoseInput.value = calculateExpectedLDN(); });
     ldnDoseInput.value = calculateExpectedLDN();
-
-    function updateDeltaReadout() {
-        const r = parseInt(restingHRInput.value), s = parseInt(standingHRInput.value);
-        if (isNaN(r) || isNaN(s)) { deltaReadout.style.display = 'none'; return; }
-        const delta = s - r;
-        const flag = delta >= 30;
-        deltaReadout.style.display = 'block';
-        deltaReadout.innerHTML = `Orthostatic &Delta;HR: <span style="font-size:1.1rem;">${delta >= 0 ? '+' : ''}${delta} bpm</span>` +
-            (flag ? ` <span class="delta-flag">&mdash; &ge;30, a POTS-range rise</span>` : ` &mdash; below the 30 bpm POTS threshold`);
-    }
-    restingHRInput.addEventListener('input', updateDeltaReadout);
-    standingHRInput.addEventListener('input', updateDeltaReadout);
 
     vasovagalBtn.addEventListener('click', () => {
         const now = new Date();
@@ -414,18 +314,14 @@
         const recent = logs.filter(l => new Date(l.date) >= thirty);
         if (recent.length === 0) {
             document.getElementById('avgSeverity').textContent = '--';
-            document.getElementById('avgDelta').textContent = '--';
             document.getElementById('episodeCount').textContent = '0';
             document.getElementById('insightsText').textContent = 'Log daily entries to build trends.';
             return;
         }
         const avgSev = (recent.reduce((s,l)=>s+(l.severity||0),0)/recent.length).toFixed(1);
         document.getElementById('avgSeverity').textContent = `${avgSev}/10`;
-        const deltas = recent.map(l=>l.vitals && l.vitals.deltaHR).filter(v=>typeof v==='number');
-        document.getElementById('avgDelta').textContent = deltas.length ? `${Math.round(deltas.reduce((a,b)=>a+b,0)/deltas.length)} bpm` : '--';
         document.getElementById('episodeCount').textContent = recent.filter(hasEpisode).length;
 
-        // Simple PEM-lag heuristic: high-activity day followed by a severity jump 1-2 days later
         let insight = '\ud83d\udca1 <strong>Observations:</strong> ';
         const byDate = {}; logs.forEach(l => byDate[l.date] = l);
         let pemHits = 0, pemChecks = 0;
@@ -438,11 +334,8 @@
         });
         if (pemChecks >= 3 && pemHits/pemChecks >= 0.4) {
             insight += `Possible PEM pattern: your symptoms tended to spike 1&ndash;2 days after higher-activity days (${pemHits} of ${pemChecks} times). Worth pacing more conservatively.`;
-        } else if (deltas.length >= 3) {
-            const flagged = deltas.filter(d=>d>=30).length;
-            insight += `${flagged} of your last ${deltas.length} stand checks showed a &ge;30 bpm orthostatic rise. Keep logging HR for a clearer picture.`;
         } else {
-            insight += 'Add resting/standing HR and keep logging activity so the app can surface orthostatic and post-exertional patterns.';
+            insight += 'Keep logging daily entries and activity so the app can surface post-exertional patterns over time.';
         }
         document.getElementById('insightsText').innerHTML = insight;
     }
@@ -453,20 +346,16 @@
     // ---------- Chart ----------
     function getMetricValue(log, metric){
         if(metric==='severity') return (typeof log.severity==='number') ? log.severity : null;
-        if(metric==='deltaHR') return (log.vitals && log.vitals.deltaHR!=null) ? log.vitals.deltaHR : null;
-        if(metric==='restingHR') return (log.vitals && log.vitals.restingHR!=null) ? log.vitals.restingHR : null;
-        if(metric==='standingHR') return (log.vitals && log.vitals.standingHR!=null) ? log.vitals.standingHR : null;
         if(log.symptoms && log.symptoms[metric]!=null) return log.symptoms[metric];
         return null;
     }
-    function niceMax(v){ if(v<=5) return 5; if(v<=10) return 10; return Math.ceil(v/10)*10; }
 
     function drawChart(){
         const metric = document.getElementById('chartMetric').value;
         const host = document.getElementById('chartHost');
         const cutoff = new Date(); cutoff.setHours(0,0,0,0); cutoff.setDate(cutoff.getDate()-29);
         const recent = logs.filter(l => new Date(l.date+'T00:00:00') >= cutoff).sort((a,b)=> new Date(a.date)-new Date(b.date));
-        const pts = recent.map(l => ({ d:new Date(l.date+'T00:00:00'), v:getMetricValue(l,metric), ep:hasEpisode(l) })).filter(p=>p.v!=null);
+        const pts = recent.map(l => ({ d:new Date(l.date+'T00:00:00'), v:getMetricValue(l,metric) })).filter(p=>p.v!=null);
         const eps = recent.map(l => ({ d:new Date(l.date+'T00:00:00'), ep:hasEpisode(l) })).filter(p=>p.ep);
 
         if (pts.length === 0){ host.innerHTML = '<div class="chart-empty">No data yet for this metric in the last 30 days.</div>'; return; }
@@ -475,15 +364,11 @@
         const minD = pts[0].d.getTime(), maxD = pts[pts.length-1].d.getTime();
         const spanD = Math.max(1, maxD-minD);
         const x = t => padL + ( (t-minD)/spanD ) * (W-padL-padR);
-        let yMin=0, yMax;
-        if(metric==='severity') yMax=10;
-        else if(SYMPTOMS.indexOf(metric)>-1) yMax=5;
-        else { const vs=pts.map(p=>p.v); yMin=Math.min.apply(null,vs); yMax=Math.max.apply(null,vs); const pad=Math.max(4,Math.round((yMax-yMin)*0.15)); yMin=Math.max(0,Math.floor((yMin-pad)/5)*5); yMax=niceMax(yMax+pad); if(yMax<=yMin) yMax=yMin+10; }
+        const yMin = 0, yMax = (metric==='severity') ? 10 : 5;
         const y = v => padT + (1-(v-yMin)/(yMax-yMin)) * (H-padT-padB);
 
-        const ticks = 4; let grid='', ylab='';
+        const ticks = (metric==='severity') ? 5 : 5; let grid='', ylab='';
         for(let i=0;i<=ticks;i++){ const val=yMin+(yMax-yMin)*i/ticks; const yy=y(val); grid+=`<line x1="${padL}" y1="${yy.toFixed(1)}" x2="${W-padR}" y2="${yy.toFixed(1)}" stroke="#eef0f4"/>`; ylab+=`<text x="${padL-6}" y="${(yy+3).toFixed(1)}" font-size="10" fill="#999" text-anchor="end">${Math.round(val)}</text>`; }
-        let thr=''; if(metric==='deltaHR' && yMin<30 && yMax>30){ const yy=y(30); thr=`<line x1="${padL}" y1="${yy.toFixed(1)}" x2="${W-padR}" y2="${yy.toFixed(1)}" stroke="#e74c3c" stroke-dasharray="5 4" stroke-width="1.2"/><text x="${W-padR}" y="${(yy-4).toFixed(1)}" font-size="9" fill="#e74c3c" text-anchor="end">POTS &ge;30</text>`; }
 
         const line = pts.map((p,i)=>`${i===0?'M':'L'}${x(p.d.getTime()).toFixed(1)} ${y(p.v).toFixed(1)}`).join(' ');
         const dots = pts.map(p=>`<circle cx="${x(p.d.getTime()).toFixed(1)}" cy="${y(p.v).toFixed(1)}" r="3.2" fill="#6c5ce7"/>`).join('');
@@ -493,7 +378,7 @@
         for(let i=0;i<nLab;i++){ const idx=Math.round(i*(pts.length-1)/(nLab-1||1)); const p=pts[idx]; xlab+=`<text x="${x(p.d.getTime()).toFixed(1)}" y="${H-8}" font-size="10" fill="#999" text-anchor="middle">${shortDate(p.d.toISOString().split('T')[0])}</text>`; }
 
         host.innerHTML = `<svg class="chart" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img">
-            ${grid}${thr}${ylab}
+            ${grid}${ylab}
             <path d="${line}" fill="none" stroke="#6c5ce7" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
             ${dots}${epMarks}${xlab}
             ${eps.length?`<text x="${padL}" y="${H-2}" font-size="9" fill="#e74c3c">&#9679; vasovagal episode</text>`:''}
@@ -513,16 +398,12 @@
             if(log.symptoms && typeof log.symptoms==='object'){ for(const [s,v] of Object.entries(log.symptoms)){ if(v>0){ badges+=`<span class="badge ${v>=4?'badge-high':''}">${s}: <strong>${v}/5</strong></span>`; } } }
             const flare = hasEpisode(log) ? `<span class="badge badge-alert">\u26a0\ufe0f Vasovagal Syncopal Event</span>` : '';
             let meds=''; if(log.meds){ meds=`<p style="margin:5px 0;font-size:0.85rem;color:#555;">\ud83d\udc8a <strong>Meds:</strong> ${log.meds.zoloft?'Zoloft 150mg':''}${log.meds.ldnTaken?` | LDN (${log.meds.ldnDose}mg)`:''}</p>`; }
-            let vit=''; if(log.vitals && (log.vitals.restingHR!=null || log.vitals.standingHR!=null)){
-                const r=log.vitals.restingHR, s=log.vitals.standingHR, dl=log.vitals.deltaHR;
-                vit=`<p style="margin:5px 0;font-size:0.85rem;color:#555;">\u2764\ufe0f <strong>HR:</strong> rest ${r!=null?r:'?'} / stand ${s!=null?s:'?'}${dl!=null?` (&Delta;${dl>=0?'+':''}${dl}${dl>=30?' \u26a0\ufe0f':''})`:''}${log.vitals.restBP||log.vitals.standBP?` &nbsp; BP ${log.vitals.restBP||'?'} \u2192 ${log.vitals.standBP||'?'}`:''}</p>`;
-            }
             el.innerHTML = `
                 <button class="edit-btn" onclick="startEdit('${log.id}')">Edit</button>
                 <button class="delete-btn" onclick="deleteLog('${log.id}')">Delete</button>
                 <div class="log-date">${formatDateWithDay(log.date)}</div>
                 <div class="log-severity" style="background-color:${color}">Baseline Pain/Fatigue: ${log.severity}/10</div>
-                ${vit}${meds}
+                ${meds}
                 <p style="margin:5px 0;font-size:0.9rem;"><strong>Pacing:</strong> ${log.exercise||'Not specified'}</p>
                 <p style="margin:0 0 10px 0;font-size:0.85rem;color:#57606f;">\ud83d\udca7 ${log.hydration||'Fluid status unlogged'}</p>
                 <div style="margin-bottom:10px;">${flare} ${badges || '<em>No symptoms rated above 0</em>'}</div>
@@ -535,18 +416,10 @@
     function buildEntryFromForm() {
         const symptoms = {};
         document.querySelectorAll('.symptom-grid select').forEach(sel => { symptoms[sel.name.replace('symptom_','')] = parseInt(sel.value); });
-        const r = parseInt(restingHRInput.value), s = parseInt(standingHRInput.value);
-        const vitals = {};
-        if(!isNaN(r)) vitals.restingHR = r;
-        if(!isNaN(s)) vitals.standingHR = s;
-        if(vitals.restingHR!=null && vitals.standingHR!=null) vitals.deltaHR = vitals.standingHR - vitals.restingHR;
-        if(restBPInput.value.trim()) vitals.restBP = restBPInput.value.trim();
-        if(standBPInput.value.trim()) vitals.standBP = standBPInput.value.trim();
         return {
             date: dateInput.value,
             severity: parseInt(severityInput.value),
             symptoms,
-            vitals: Object.keys(vitals).length ? vitals : undefined,
             exercise: document.getElementById('exercise').value,
             hydration: document.getElementById('potsHydration').value,
             meds: { zoloft: document.getElementById('medZoloft').checked, ldnTaken: document.getElementById('medLDN').checked, ldnDose: parseFloat(ldnDoseInput.value) || 0 },
@@ -560,7 +433,6 @@
         dateInput.value = new Date().toISOString().split('T')[0];
         severityInput.value = 5; severityVal.textContent = '5';
         ldnDoseInput.value = calculateExpectedLDN();
-        deltaReadout.style.display = 'none';
         submitBtn.textContent = 'Save Log Entry';
         cancelEditBtn.style.display = 'none';
         editingBanner.style.display = 'none';
@@ -574,11 +446,6 @@
         document.getElementById('medZoloft').checked = !!(log.meds && log.meds.zoloft);
         document.getElementById('medLDN').checked = !!(log.meds && log.meds.ldnTaken);
         ldnDoseInput.value = (log.meds && log.meds.ldnDose!=null) ? log.meds.ldnDose : '';
-        restingHRInput.value = (log.vitals && log.vitals.restingHR!=null) ? log.vitals.restingHR : '';
-        standingHRInput.value = (log.vitals && log.vitals.standingHR!=null) ? log.vitals.standingHR : '';
-        restBPInput.value = (log.vitals && log.vitals.restBP) ? log.vitals.restBP : '';
-        standBPInput.value = (log.vitals && log.vitals.standBP) ? log.vitals.standBP : '';
-        updateDeltaReadout();
         document.querySelectorAll('.symptom-grid select').forEach(sel => { const n=sel.name.replace('symptom_',''); sel.value=(log.symptoms && log.symptoms[n]!=null)?log.symptoms[n]:0; });
         if(log.hydration) document.getElementById('potsHydration').value = log.hydration;
         if(log.exercise) document.getElementById('exercise').value = log.exercise;
@@ -610,65 +477,6 @@
         if(confirm("Are you sure you want to delete this entry?")){ logs=logs.filter(l=>l.id!==id); saveLogs(); if(editingId===id) resetForm(); renderLogs(); checkBackupReminder(); }
     };
 
-    // ---------- Stand test ----------
-    const READ_TIMES = [60,120,180,300,420,600]; // seconds standing
-    let standTimer=null, standElapsed=0, standResting=null;
-    const standArea=document.getElementById('standArea');
-    const standTimerWrap=document.getElementById('standTimerWrap');
-    const standTimerEl=document.getElementById('standTimer');
-    const standReadingsEl=document.getElementById('standReadings');
-    const standResultEl=document.getElementById('standResult');
-    const standResultText=document.getElementById('standResultText');
-
-    function fmtClock(s){ const m=Math.floor(s/60), ss=s%60; return String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0'); }
-    function buildReadingRows(){
-        standReadingsEl.innerHTML = READ_TIMES.map(t=>{
-            const lab = t<60? t+'s' : (t/60)+' min';
-            return `<div class="reading-row" data-t="${t}"><span class="rl">@ ${lab}</span><input type="number" min="0" max="250" inputmode="numeric" class="stand-read" data-t="${t}" placeholder="bpm"></div>`;
-        }).join('');
-    }
-    document.getElementById('standStartBtn').addEventListener('click', ()=>{
-        standArea.style.display='block'; standTimerWrap.style.display='none'; standResultEl.style.display='none';
-        document.getElementById('standResting').value='';
-        document.getElementById('standStartBtn').scrollIntoView({behavior:'smooth', block:'center'});
-    });
-    document.getElementById('standGoBtn').addEventListener('click', ()=>{
-        standResting = parseInt(document.getElementById('standResting').value);
-        if(isNaN(standResting)){ alert('Enter your resting HR first.'); return; }
-        buildReadingRows();
-        standTimerWrap.style.display='block'; standResultEl.style.display='none';
-        standElapsed=0; standTimerEl.textContent='00:00';
-        if(standTimer) clearInterval(standTimer);
-        standTimer=setInterval(()=>{
-            standElapsed++; standTimerEl.textContent=fmtClock(standElapsed);
-            document.querySelectorAll('.reading-row').forEach(row=>{ const t=parseInt(row.dataset.t); if(standElapsed>=t && standElapsed<t+20) row.classList.add('due'); else row.classList.remove('due'); });
-            if(navigator.vibrate && READ_TIMES.indexOf(standElapsed)>-1) navigator.vibrate(200);
-            if(standElapsed>=600){ clearInterval(standTimer); standTimer=null; }
-        },1000);
-    });
-    function finishStand(){
-        if(standTimer){ clearInterval(standTimer); standTimer=null; }
-        const reads=[...document.querySelectorAll('.stand-read')].map(i=>parseInt(i.value)).filter(v=>!isNaN(v));
-        if(reads.length===0){ alert('Enter at least one standing HR reading.'); return; }
-        const peak=Math.max.apply(null,reads); const delta=peak-standResting; const flag=delta>=30;
-        standResultText.innerHTML = `<div class="big">&Delta;HR ${delta>=0?'+':''}${delta} bpm</div>
-            Resting ${standResting} &rarr; peak standing ${peak} bpm.<br>
-            ${flag? '<span style="color:#c0392b;font-weight:700;">A &ge;30 bpm rise &mdash; consistent with a POTS pattern when sustained.</span>' : 'Below the 30 bpm POTS threshold.'}
-            <div style="font-size:0.8rem;color:#7f8c8d;margin-top:6px;">A single test isn\u2019t a diagnosis. Share repeated results with your clinician.</div>`;
-        standResultEl.style.display='block'; standTimerWrap.style.display='none';
-        standResultEl._vals={resting:standResting, peak:peak};
-        standResultEl.scrollIntoView({behavior:'smooth', block:'center'});
-    }
-    document.getElementById('standFinishBtn').addEventListener('click', finishStand);
-    document.getElementById('standCancelBtn').addEventListener('click', ()=>{ if(standTimer){clearInterval(standTimer);standTimer=null;} standArea.style.display='none'; });
-    document.getElementById('standSaveBtn').addEventListener('click', ()=>{
-        const v=standResultEl._vals; if(!v) return;
-        restingHRInput.value=v.resting; standingHRInput.value=v.peak; updateDeltaReadout();
-        dateInput.value=new Date().toISOString().split('T')[0];
-        standArea.style.display='none';
-        form.scrollIntoView({behavior:'smooth', block:'start'});
-    });
-
     // ---------- Backup / restore ----------
     const LAST_BACKUP_KEY='lastBackup'; let reminderDismissed=false;
     function download(filename, text, type){
@@ -691,11 +499,11 @@
     function csvEscape(v){ if(v==null) return ''; const s=String(v); return /[",\n]/.test(s) ? '"'+s.replace(/"/g,'""')+'"' : s; }
     function exportCSV(){
         if(logs.length===0){ alert('Nothing to export yet.'); return; }
-        const cols=['date','severity','restingHR','standingHR','deltaHR','restBP','standBP','episode',...SYMPTOMS,'zoloft','ldnTaken','ldnDose','hydration','exercise','notes'];
+        const cols=['date','severity','episode',...SYMPTOMS,'zoloft','ldnTaken','ldnDose','hydration','exercise','notes'];
         const rows=[cols.join(',')];
         [...logs].sort((a,b)=>new Date(a.date)-new Date(b.date)).forEach(l=>{
-            const v=l.vitals||{}; const m=l.meds||{};
-            const row=[l.date,l.severity,v.restingHR,v.standingHR,v.deltaHR,v.restBP,v.standBP, hasEpisode(l)?1:0,
+            const m=l.meds||{};
+            const row=[l.date,l.severity, hasEpisode(l)?1:0,
                 ...SYMPTOMS.map(s=>l.symptoms?l.symptoms[s]:''), m.zoloft?1:0, m.ldnTaken?1:0, m.ldnDose, l.hydration, l.exercise, l.notes];
             rows.push(row.map(csvEscape).join(','));
         });
@@ -705,19 +513,17 @@
         if(logs.length===0){ alert('Nothing to summarize yet.'); return; }
         const sorted=[...logs].sort((a,b)=>new Date(b.date)-new Date(a.date));
         const sev=sorted.map(l=>l.severity).filter(n=>typeof n==='number');
-        const deltas=sorted.map(l=>l.vitals&&l.vitals.deltaHR).filter(n=>typeof n==='number');
         const avg=arr=>arr.length?(arr.reduce((a,b)=>a+b,0)/arr.length):null;
-        const aSev=avg(sev), aDel=avg(deltas), eps=sorted.filter(hasEpisode).length;
+        const aSev=avg(sev), eps=sorted.filter(hasEpisode).length;
         let rows='';
-        sorted.forEach(l=>{ const v=l.vitals||{}; const topSym=Object.entries(l.symptoms||{}).filter(([_,x])=>x>=3).map(([k,x])=>`${k} ${x}`).join(', ');
-            rows+=`<tr><td>${shortDate(l.date)}</td><td>${l.severity}</td><td>${v.deltaHR!=null?(v.deltaHR>=0?'+':'')+v.deltaHR:''}</td><td>${topSym||''}</td><td>${hasEpisode(l)?'Yes':''}</td><td>${(l.notes||'').replace(/</g,'&lt;').slice(0,140)}</td></tr>`; });
+        sorted.forEach(l=>{ const topSym=Object.entries(l.symptoms||{}).filter(([_,x])=>x>=3).map(([k,x])=>`${k} ${x}`).join(', ');
+            rows+=`<tr><td>${shortDate(l.date)}</td><td>${l.severity}</td><td>${topSym||''}</td><td>${hasEpisode(l)?'Yes':''}</td><td>${(l.notes||'').replace(/</g,'&lt;').slice(0,160)}</td></tr>`; });
         document.getElementById('printArea').innerHTML = `
             <h2>POTS &amp; ME/CFS Summary</h2>
             <p>Generated ${new Date().toLocaleDateString()} &bull; ${sorted.length} entries</p>
             <p><strong>Avg severity:</strong> ${aSev!=null?aSev.toFixed(1)+'/10':'n/a'} &nbsp; | &nbsp;
-               <strong>Avg orthostatic &Delta;HR:</strong> ${aDel!=null?Math.round(aDel)+' bpm':'n/a'} &nbsp; | &nbsp;
                <strong>Vasovagal episodes:</strong> ${eps}</p>
-            <table><thead><tr><th>Date</th><th>Sev</th><th>&Delta;HR</th><th>Notable symptoms (&ge;3)</th><th>Episode</th><th>Notes</th></tr></thead><tbody>${rows}</tbody></table>`;
+            <table><thead><tr><th>Date</th><th>Sev</th><th>Notable symptoms (&ge;3)</th><th>Episode</th><th>Notes</th></tr></thead><tbody>${rows}</tbody></table>`;
         window.print();
     }
     function checkBackupReminder(){
